@@ -1,4 +1,4 @@
-# DCCA or Deep CCA: Deep Canonical Correlation Analysis
+# DCCA: Deep Canonical Correlation Analysis
 
 This is an implementation of Deep Canonical Correlation Analysis (DCCA or Deep CCA) with Keras. DCCA is a non-linear version of CCA which uses neural networks as the mapping functions instead of linear transformers. 
 
@@ -23,6 +23,6 @@ The following are the differences between my implementation and the original pap
 ### Other Implementations
 The following are the other implementations of DCCA in MATLAB and C++ from which I got help for the implementation. These codes are written by the authors of the original paper:
 
-[C++ implementation](https://homes.cs.washington.edu/~galen/files/dcca.tgz) from Galen Andrew's website (https://homes.cs.washington.edu/~galen/)
+* [C++ implementation](https://homes.cs.washington.edu/~galen/files/dcca.tgz) from Galen Andrew's website (https://homes.cs.washington.edu/~galen/)
 
-[MATLAB implementation](http://ttic.uchicago.edu/~wwang5/papers/dccae.tgz) from Weiran Wang's website (http://ttic.uchicago.edu/~wwang5/dccae.html) 
+* [MATLAB implementation](http://ttic.uchicago.edu/~wwang5/papers/dccae.tgz) from Weiran Wang's website (http://ttic.uchicago.edu/~wwang5/dccae.html) 
