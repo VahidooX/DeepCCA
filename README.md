@@ -1,4 +1,4 @@
-# DCCA: Deep Canonical Correlation Analysis
+# DCCA or Deep CCA: Deep Canonical Correlation Analysis
 
 This is an implementation of Deep Canonical Correlation Analysis (DCCA or Deep CCA) with Keras. DCCA is a non-linear version of CCA which uses neural networks as the mapping functions instead of linear transformers. 
 
