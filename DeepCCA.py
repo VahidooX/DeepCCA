@@ -111,8 +111,8 @@ if __name__ == '__main__':
     outdim_size = 10
 
     # size of the input for view 1 and view 2
-    input_shape1 = [1, 28, 28]
-    input_shape2 = [1, 28, 28]
+    input_shape1 = 784
+    input_shape2 = 784
 
     # number of layers with nodes in each one
     layer_sizes1 = [1024, 1024, 1024, outdim_size]
