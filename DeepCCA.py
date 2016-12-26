@@ -129,7 +129,7 @@ if __name__ == '__main__':
 
     # specifies if all the singular values should get used to calculate the correlation or just the top outdim_size ones
     # if one option does not work for a network or dataset, try the other one
-    use_all_singular_values = False
+    use_all_singular_values = True
 
     # if a linear CCA should get applied on the learned features extracted from the networks
     # it does not affect the performance on noisy MNIST significantly
