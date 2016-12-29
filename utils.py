@@ -1,6 +1,6 @@
+import gzip
 from sklearn import svm
 from sklearn.metrics import accuracy_score
-import cPickle, gzip
 import numpy as np
 import theano
 from keras.utils.data_utils import get_file
@@ -8,10 +8,10 @@ from keras.utils.data_utils import get_file
 
 def load_data(data_file, url):
     """loads the data from the gzip pickled files, and converts to numpy arrays"""
-    print 'loading data ...'
+    print('loading data ...')
     path = get_file(data_file, origin=url)
     f = gzip.open(path, 'rb')
-    train_set, valid_set, test_set = cPickle.load(f)
+    train_set, valid_set, test_set = load_pickle(f)
     f.close()
 
     train_set_x, train_set_y = make_numpy_array(train_set)
@@ -38,7 +38,7 @@ def svm_classify(data, C):
     valid_data, _, valid_label = data[1]
     test_data, _, test_label = data[2]
 
-    print 'training SVM...'
+    print('training SVM...')
     clf = svm.SVC(C=C, kernel='linear')
     clf.fit(train_data, train_label.ravel())
 
@@ -48,3 +48,21 @@ def svm_classify(data, C):
     valid_acc = accuracy_score(valid_label, p)
 
     return [test_acc, valid_acc]
+
+def load_pickle(f):
+    """
+    loads and returns the content of a pickled file
+    it handles the inconsistencies between the pickle packages available in Python 2 and 3
+    """
+    try:
+        import cPickle as thepickle
+    except ImportError:
+        import _pickle as thepickle
+
+    try:
+        ret = thepickle.load(f, encoding='latin1')
+    except TypeError:
+        ret = thepickle.load(f)
+
+    return ret
+

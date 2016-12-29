@@ -1,13 +1,13 @@
 # DCCA: Deep Canonical Correlation Analysis
 
-This is an implementation of Deep Canonical Correlation Analysis (DCCA or Deep CCA) with Keras. DCCA is a non-linear version of CCA which uses neural networks as the mapping functions instead of linear transformers. 
+This is an implementation of Deep Canonical Correlation Analysis (DCCA or Deep CCA) in Python. It needs Theano and Keras libraries to be installed.
 
-DCCA is originally proposed in the following paper:
+DCCA is a non-linear version of CCA which uses neural networks as the mapping functions instead of linear transformers. DCCA is originally proposed in the following paper:
 
 Galen Andrew, Raman Arora, Jeff Bilmes, Karen Livescu, "[Deep Canonical Correlation Analysis.](http://www.jmlr.org/proceedings/papers/v28/andrew13.pdf)" ICML. 2013.
 
 
-It does not work on the Tensorflow backend because the loss function of the network is written with Theano. The base modeling network can easily get substituted with a more efficient and powerful network like CNN.
+It uses the Keras library with the Theano backend, and does not work on the Tensorflow backend. Because the loss function of the network is written with Theano. The base modeling network can easily get substituted with a more efficient and powerful network like CNN.
 
 ### Dataset
 The model is evaluated on a noisy version of MNIST dataset. I built the dataset exactly like the way it is introduced in the paper. The train/validation/test split is the original split of MNIST.

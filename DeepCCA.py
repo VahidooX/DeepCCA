@@ -1,4 +1,9 @@
-import cPickle, gzip
+try:
+    import cPickle as thepickle
+except ImportError:
+    import _pickle as thepickle
+
+import gzip
 import numpy as np
 
 from keras.callbacks import ModelCheckpoint
@@ -79,9 +84,9 @@ def test_model(model, data1, data2, outdim_size, apply_linear_cca):
     if apply_linear_cca:
         w = [None, None]
         m = [None, None]
-        print "Linear CCA started!"
+        print("Linear CCA started!")
         w[0], w[1], m[0], m[1] = linear_cca(new_data[0][0], new_data[0][1], outdim_size)
-        print "Linear CCA ended!"
+        print("Linear CCA ended!")
 
         # Something done in the original MATLAB implementation of DCCA, do not know exactly why;)
         # it did not affect the performance significantly on the noisy MNIST dataset
@@ -157,7 +162,7 @@ if __name__ == '__main__':
     print("Accuracy on view 1 (test data) is:", test_acc*100.0)
 
     # Saving new features in a gzip pickled file specified by save_to
-    print 'saving new features ...'
+    print('saving new features ...')
     f1 = gzip.open(save_to, 'wb')
-    cPickle.dump(new_data, f1)
+    thepickle.dump(new_data, f1)
     f1.close()
