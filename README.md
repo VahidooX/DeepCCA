@@ -19,6 +19,7 @@ The following are the differences between my implementation and the original pap
 
  * I used RMSProp (an adaptive version of gradient descent) instead of GD with momentum. It was so much faster in converging.
  * Instead of a non-saturating version of sigmoid, I just used the standard sigmoid as the activation functions. Standard sigmoid is used in the MATLAB implementation too. It should not affect the performance significantly. However, if it is needed, it can get substituted by another non-saturating activation function like ReLU.
+ * Pre-training is not done in this implementation. However, it is not clear how much it can be useful.
 
 ### Other Implementations
 The following are the other implementations of DCCA in MATLAB and C++ from which I got help for the implementation. These codes are written by the authors of the original paper:
