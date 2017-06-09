@@ -31,6 +31,8 @@ def cca_loss(outdim_size, use_all_singular_values):
         SigmaHat22 = (1.0 / (m - 1)) * T.dot(H2bar, H2bar.T) + r2 * T.eye(o2)
 
         # Calculating the root inverse of covariance matrices by using eigen decomposition
+        # Note: Some people may think that the Sigma**(-0.5) in the paper means calculating elementwise power to -0.5 but 
+        # it means root inverse of the matrix which is totally different
         [D1, V1] = T.nlinalg.eigh(SigmaHat11)
         [D2, V2] = T.nlinalg.eigh(SigmaHat22)
         SigmaHat11RootInv = T.dot(T.dot(V1, T.nlinalg.diag(D1 ** -0.5)), V1.T)
