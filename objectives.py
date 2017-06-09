@@ -23,8 +23,8 @@ def cca_loss(outdim_size, use_all_singular_values):
 
         m = H1.shape[1]
 
-        H1bar = H1 - (1.0 / m) * T.dot(H1, T.ones(m))
-        H2bar = H2 - (1.0 / m) * T.dot(H2, T.ones(m))
+        H1bar = H1 - (1.0 / m) * T.dot(H1, T.ones([m, m]))
+        H2bar = H2 - (1.0 / m) * T.dot(H2, T.ones([m, m]))
 
         SigmaHat12 = (1.0 / (m - 1)) * T.dot(H1bar, H2bar.T)
         SigmaHat11 = (1.0 / (m - 1)) * T.dot(H1bar, H1bar.T) + r1 * T.eye(o1)
