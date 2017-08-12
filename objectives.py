@@ -15,6 +15,7 @@ def cca_loss(outdim_size, use_all_singular_values):
 
         r1 = 1e-4
         r2 = 1e-4
+        eps = 1e-12
         o1 = o2 = y_pred.shape[1]//2
 
         # unpack (separate) the output of networks for view 1 and view 2
@@ -31,14 +32,21 @@ def cca_loss(outdim_size, use_all_singular_values):
         SigmaHat22 = (1.0 / (m - 1)) * T.dot(H2bar, H2bar.T) + r2 * T.eye(o2)
 
         # Calculating the root inverse of covariance matrices by using eigen decomposition
-        # Note: Some people may think that the Sigma**(-0.5) in the paper means calculating elementwise power to -0.5 but 
-        # it means root inverse of the matrix which is totally different
         [D1, V1] = T.nlinalg.eigh(SigmaHat11)
         [D2, V2] = T.nlinalg.eigh(SigmaHat22)
+
+        # Added to increase stability
+        posInd1 = T.gt(D1, eps).nonzero()[0]
+        D1 = D1[posInd1]
+        V1 = V1[:, posInd1]
+        posInd2 = T.gt(D2, eps).nonzero()[0]
+        D2 = D2[posInd2]
+        V2 = V2[:, posInd2]
+
         SigmaHat11RootInv = T.dot(T.dot(V1, T.nlinalg.diag(D1 ** -0.5)), V1.T)
         SigmaHat22RootInv = T.dot(T.dot(V2, T.nlinalg.diag(D2 ** -0.5)), V2.T)
 
-        Tval = T.dot(T.dot(SigmaHat11RootInv,SigmaHat12), SigmaHat22RootInv)
+        Tval = T.dot(T.dot(SigmaHat11RootInv, SigmaHat12), SigmaHat22RootInv)
 
         if use_all_singular_values:
             # all singular values are used to calculate the correlation
@@ -46,8 +54,9 @@ def cca_loss(outdim_size, use_all_singular_values):
         else:
             # just the top outdim_size singular values are used
             [U, V] = T.nlinalg.eigh(T.dot(Tval.T, Tval))
-            idx = (U.argsort())[0:outdim_size]
-            corr = T.sum(T.sqrt(U[idx]))
+            U = U[T.gt(U, eps).nonzero()[0]]
+            U = U.sort()
+            corr = T.sum(T.sqrt(U[0:outdim_size]))
 
         return -corr
 

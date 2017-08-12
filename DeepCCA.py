@@ -35,16 +35,15 @@ def train_model(model, data1, data2, epoch_num, batch_size):
 
     # best weights are saved in "temp_weights.hdf5" during training
     # it is done to return the best model based on the validation loss
-    checkpointer = ModelCheckpoint(filepath="temp_weights.dat", verbose=1,
-                                   save_best_only=True, save_weights_only=True)
+    checkpointer = ModelCheckpoint(filepath="temp_weights.h5", verbose=1, save_best_only=True, save_weights_only=True)
 
     # used dummy Y because labels are not used in the loss function
     model.fit([train_set_x1, train_set_x2], np.zeros(len(train_set_x1)),
-              batch_size=batch_size, nb_epoch=epoch_num, shuffle=True,
+              batch_size=batch_size, epochs=epoch_num, shuffle=True,
               validation_data=([valid_set_x1, valid_set_x2], np.zeros(len(valid_set_x1))),
               callbacks=[checkpointer])
 
-    model.load_weights("temp_weights.dat")
+    model.load_weights("temp_weights.h5")
 
     results = model.evaluate([test_set_x1, test_set_x2], np.zeros(len(test_set_x1)), batch_size=batch_size, verbose=1)
 
@@ -134,7 +133,7 @@ if __name__ == '__main__':
 
     # specifies if all the singular values should get used to calculate the correlation or just the top outdim_size ones
     # if one option does not work for a network or dataset, try the other one
-    use_all_singular_values = True
+    use_all_singular_values = False
 
     # if a linear CCA should get applied on the learned features extracted from the networks
     # it does not affect the performance on noisy MNIST significantly

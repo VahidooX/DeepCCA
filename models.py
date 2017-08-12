@@ -38,6 +38,5 @@ def build_mlp_net(layer_sizes, input_size, reg_par):
 
         model.add(Dense(ls, input_dim=input_dim,
                                 activation=activation,
-                                W_regularizer=l2(reg_par),
-                                b_regularizer=l2(reg_par)))
+                                kernel_regularizer=l2(reg_par)))
     return model
