@@ -26,8 +26,8 @@ def linear_cca(H1, H2, outdim_size):
     SigmaHat11 = (1.0 / (m - 1)) * numpy.dot(H1bar.T, H1bar) + r1 * numpy.identity(o)
     SigmaHat22 = (1.0 / (m - 1)) * numpy.dot(H2bar.T, H2bar) + r2 * numpy.identity(o)
 
-    [D1, V1] = numpy.linalg.eig(SigmaHat11)
-    [D2, V2] = numpy.linalg.eig(SigmaHat22)
+    [D1, V1] = numpy.linalg.eigh(SigmaHat11)
+    [D2, V2] = numpy.linalg.eigh(SigmaHat22)
     SigmaHat11RootInv = numpy.dot(numpy.dot(V1, numpy.diag(D1 ** -0.5)), V1.T)
     SigmaHat22RootInv = numpy.dot(numpy.dot(V2, numpy.diag(D2 ** -0.5)), V2.T)
 
